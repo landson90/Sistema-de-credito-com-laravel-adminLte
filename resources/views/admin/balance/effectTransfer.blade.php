@@ -22,7 +22,9 @@
        <div class="box-body">
            <form method="POST" action="{{route('confirm.transfer')}}">
            {!! csrf_field() !!}
-           <p> <strong>Recebedor: </strong>{{$searchFor->name}}</p>
+           <p> <strong>Nome do Recebedor: </strong>{{$searchFor->name}}</p>
+           <p> <strong>Email do Recebedor: </strong>{{$searchFor->email}}</p>
+           <p> <strong>Saldo desta conta R$: </strong>{{$saldo->amount}}</p>
            <input type="hidden" name="idTransfer" value="{{ $searchFor->id  }}">
                <div class="form-group ">
                     <input name="valor" type="text" placeholder="Valor R$:" class="form-control">

@@ -19,6 +19,18 @@
        </div>
        
        <div class="box-body">
+           <form action="{{route('admin.filtro')}}" class="form form-inline" method="POST">
+               {!!  csrf_field()   !!}
+              <input type="text" class="form-control" name="id" placeholder="Id">
+              <input type="date" class="form-control" name="date" placeholder="Data">
+              <select name="type" class="form-control">
+                  <option value="#">-- Seleciona o Tipo --</option>
+                  @foreach($type as $key => $types)
+                    <option value="{{$key}}">{{$types}}</option>
+                  @endforeach
+              </select>
+              <button class="btn btn-success" type="submit">Filtra</button>
+           </form>
            <table class="table table-bordered table-hover">
                <thead>
                    <tr>
@@ -26,7 +38,7 @@
                        <th>Operação</th>
                        <th>Valor</th>
                        <th>Data</th>
-                       <th>Enviado Para</th>
+                       <th>Transferências</th>
                    </tr>
                </thead>
                @foreach($historics as $listHistorics)

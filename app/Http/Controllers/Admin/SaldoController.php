@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Balance;
+use App\Models\historic;
 use App\Http\Requests\Mony\MonyFormRequest;
 use App\Http\Requests\Valida\NameFormRequest;
 use App\User;
@@ -72,6 +73,7 @@ class SaldoController extends Controller
     public function confirTransfer(NameFormRequest $request, User $user)
     {
         
+
        if(!$searchFor = $user->getSearch($request->nome_conta))
            return redirect()
                     ->back()
@@ -82,8 +84,10 @@ class SaldoController extends Controller
         return redirect()
                  ->back()
                  ->with('error', 'Transferência não autorizada!');
-    
-        return view('admin.balance.effectTransfer', compact('searchFor'));
+     
+         $saldo = auth()->user()->balance;
+
+        return view('admin.balance.effectTransfer', compact('searchFor', 'saldo'));
         
     }
     public function storeTransfer(Request $request, User $user)
@@ -106,11 +110,26 @@ class SaldoController extends Controller
                    ->with('error', $response['message']);
     }
     //
-    public function getHistoric()
+    public function getHistoric(historic $type)
     {
-        $historics = auth()->user()->historics()->with(['userOther'])->get();
+        $historics = auth()->user()
+                                ->historics()
+                                ->with(['userOther'])
+                                ->get();
 
-        return view('admin.balance.historics', compact('historics'));
+        $type = $type->tipe();
+
+        return view('admin.balance.historics', compact('historics', 'type'));
+    }
+    public function exbirFiltro(Request $request, historic $historic)
+    {
+       $dataForm = $request->all();
+      
+       $historics = $historic->filtra($dataForm);
+      
+       $type = $historic->tipe();
+       
+       return view('admin.balance.historics', compact('historics', 'type'));
     }
    
         

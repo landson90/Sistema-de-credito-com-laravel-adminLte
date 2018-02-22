@@ -113,7 +113,7 @@ return [
             'text'        => 'Home',
             'url'         => 'admin',
             'icon'        => 'home',
-            'label_color' => 'success',
+            'label_color' => 'primary',
            
         ],
         [

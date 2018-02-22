@@ -17,6 +17,8 @@ $this->group(['middleware' => 'auth', 'namespace'=> 'Admin'], function(){
     Route::post('confirm/transfer', 'SaldoController@storeTransfer')->name('confirm.transfer');
     //Rota de mostra o historico
     Route::get('admin/historic', 'SaldoController@getHistoric')->name('admin.historic');
+    
+    Route::post('admin/historic', 'SaldoController@exbirFiltro')->name('admin.filtro');
 });
 
 Route::get('/', 'Site\SiteController@index');

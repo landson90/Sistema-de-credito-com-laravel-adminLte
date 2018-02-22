@@ -31,10 +31,29 @@ class historic extends Model
         if(!$type){
             return $types;
         }
+        if($this->user_id_transfer != null && $type == 'I'){
+            return 'Deposito Recebido';
+        }
         return $types[$type];
     }
     public function userOther()
     {
          return $this->belongsTo(User::class, 'user_id_transfer');
+    }
+    public function filtra(Array $data){
+        
+        $historic = $this->where(function($query) use ($data){
+            if(isset($data['id'])){
+                $query->where('id', $data['id']);
+            }
+            if(isset($data['date'])){
+                $query->where('date', $data['date']);
+            }
+            if(isset($data['type'])){
+                $query->where('type', $data['type']);
+            }
+        })->get();
+       
+        return $historic;
     }
 }
