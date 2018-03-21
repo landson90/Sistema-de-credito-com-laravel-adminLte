@@ -15,10 +15,10 @@ $this->group(['middleware' => 'auth', 'namespace'=> 'Admin'], function(){
     Route::get('balance/transfer', 'SaldoController@transfer')->name('balance.transfer');
     Route::post('transfer', 'SaldoController@confirTransfer')->name('transfer.register');
     Route::post('confirm/transfer', 'SaldoController@storeTransfer')->name('confirm.transfer');
-    //Rota de mostra o historico
+    //Rota que mostra o historico
     Route::get('admin/historic', 'SaldoController@getHistoric')->name('admin.historic');
     
-    Route::post('admin/historic', 'SaldoController@exbirFiltro')->name('admin.filtro');
+    Route::any('admin/historic-filtro', 'SaldoController@exbirFiltro')->name('admin.filtro');
 });
 
 Route::get('/', 'Site\SiteController@index');

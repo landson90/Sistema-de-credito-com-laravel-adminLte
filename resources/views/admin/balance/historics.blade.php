@@ -58,8 +58,13 @@
                         </td>
                    </tr>
                </tbody>
-               @endforeach
+                @endforeach
            </table>
        </div> 
+        @if(isset($dataForm))
+            {!! $historics->appends($dataForm)->links()  !!}
+        @else
+            {!! $historics->links()  !!}
+        @endif
    </div>
 @stop

@@ -12,6 +12,7 @@ use App\User;
 
 class SaldoController extends Controller
 {
+    private $totalPage = 1;
     //
     public function index()
     {
@@ -115,7 +116,7 @@ class SaldoController extends Controller
         $historics = auth()->user()
                                 ->historics()
                                 ->with(['userOther'])
-                                ->get();
+                                ->paginate($this->totalPage);
 
         $type = $type->tipe();
 
@@ -123,15 +124,13 @@ class SaldoController extends Controller
     }
     public function exbirFiltro(Request $request, historic $historic)
     {
-       $dataForm = $request->all();
+       $dataForm = $request->except('_token');
       
-       $historics = $historic->filtra($dataForm);
+       $historics = $historic->filtra($dataForm, $this->totalPage);
       
        $type = $historic->tipe();
        
-       return view('admin.balance.historics', compact('historics', 'type'));
-    }
-   
-        
+       return view('admin.balance.historics', compact('historics', 'type', 'dataForm'));
+    }     
         
 }

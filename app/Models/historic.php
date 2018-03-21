@@ -40,7 +40,7 @@ class historic extends Model
     {
          return $this->belongsTo(User::class, 'user_id_transfer');
     }
-    public function filtra(Array $data){
+    public function filtra(Array $data, $totalPage){
         
         $historic = $this->where(function($query) use ($data){
             if(isset($data['id'])){
@@ -52,7 +52,7 @@ class historic extends Model
             if(isset($data['type'])){
                 $query->where('type', $data['type']);
             }
-        })->get();
+        })->paginate($totalPage);
        
         return $historic;
     }
