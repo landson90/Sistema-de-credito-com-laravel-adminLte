@@ -12,7 +12,7 @@ use App\User;
 
 class SaldoController extends Controller
 {
-    private $totalPage = 1;
+    private $totalPage = 7;
     //
     public function index()
     {
